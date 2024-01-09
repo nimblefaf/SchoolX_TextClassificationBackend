@@ -4,18 +4,10 @@ from flask import jsonify
 import json
 from socket import gethostname
 
-from topics_classifier import predict_text_class
-predictable_topics = ['Computer Science' , 'Physics', 'Mathematics', 'Statistics', 'Quantitative Biology', 'Quantitative Finance', 'Geodesy', 'Geology', 'Neftegas']
+from topics_classifier import prepare_prediction_response
 
 ProductionPrints = True
 ForceDebug = False
-
-def prepare_prediction_response(txt):
-    '''возвращает dict с угаданной темой и её шансом'''
-
-    predictions = predict_text_class(txt, return_probabilities=True)
-    topic = predictable_topics[predictions.argmax()]
-    return {'predicted_topic': topic, 'value': predictions[predictions.argmax()].item()}
 
 app = Flask(__name__)
 
